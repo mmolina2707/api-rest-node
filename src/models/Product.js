@@ -1,39 +1,6 @@
-const products = [
-  {
-    "id": 1,
-    "name": "Camiseta Deportiva",
-    "price": 150,
-    "categories": ["ropa", "deportes"]
-  },
-  {
-    "id": 2,
-    "name": "Zapatos Running",
-    "price": 1200,
-    "categories": ["calzado", "deportes"]
-  },
-  {
-    "id": 3,
-    "name": "Mochila Escolar",
-    "price": 350,
-    "categories": ["mochilas", "escolar"]
-  },
-  {
-    "id": 4,
-    "name": "Auriculares Bluetooth",
-    "price": 800,
-    "categories": ["tecnología", "audio"]
-  },
-  {
-    "id": 5,
-    "name": "Botella Térmica",
-    "price": 220,
-    "categories": ["hogar", "accesorios"]
-  }
-];
-
 import { db } from "./firebase.js";
 
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, addDoc, deleteDoc} from "firebase/firestore";
 
 const productsColletion = collection(db, "products");
 
@@ -55,4 +22,30 @@ export const getProductById = async(id) => {
       console.error(error);
     }
 };
+
+export const createProduct = async(data) => {
+  try {
+    const docRef = await addDoc(productsColletion, data);
+    return { id: docRef.id, ...data};
+    } catch (error) {
+      console.error(error);
+    }
+};
+
+export const deleteProduct = async(id) => {
+  try {
+    const productRef = doc(productsColletion, id);
+    const snapshot = await getDoc(productRef);
+
+    if (!snapshot.exists()) {
+      return false;
+    }
+
+    await deleteDoc(productRef);
+    return true;
+  }catch(error) {
+    console.error(error);
+  }
+};
+
 

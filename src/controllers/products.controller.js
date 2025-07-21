@@ -10,19 +10,19 @@ export const getAllProducts = async (req, res) => {
             item.categories.includes(category)
         );
         
-    res.json(productsFiltered);
+    return res.json(productsFiltered);
     }
-    res.json(products);
+    return res.json(products);
 };
 
-export const searchProducts = (req, res) => {
+export const searchProducts = async (req, res) => {
     const { name } = req.query;
 
     if(!name) {
         return res.status(400).json({ error: "El nombre es requerido" });
     }
 
-    const products = Model.getAllProducts();
+    const products = await Model.getAllProducts();
     
     const productsFiltered = products.filter((item) =>
         item.name.toLowerCase().includes(name.toLowerCase())
@@ -32,7 +32,7 @@ export const searchProducts = (req, res) => {
       return res.status(404).json({ error: "No se encontraron productos" });  
     }
 
-    res.json(productsFiltered);
+    return res.json(productsFiltered);
 };
 
 export const getProductById = async (req, res) => {
@@ -42,10 +42,10 @@ export const getProductById = async (req, res) => {
     const product = await Model.getProductById(id);
     
     if (!product) {
-        res.status(404).json({error: "No existe el producto"});
+        return res.status(404).json({error: "No existe el producto"});
     }
 
-    res.json(product);
+    return res.json(product);
 };
 
 

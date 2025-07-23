@@ -1,28 +1,28 @@
 # API Rest en Node.js
 
-
-
 Api Rest en Node.js
 Descripción
 API REST para gestión de productos desarrollada con Node.js y Express.
 
-## Instalación
+
+# Instalación
+Clonar el repositorio
+Instalar dependencias:
 
 ```shell
 npm install
 ```
-Instalación
-Clonar el repositorio
-Instalar dependencias:
-npm install
+
 Configurar variables de entorno:
 # Copiar el archivo de ejemplo y completar los datos requeridos
 cp .env-example .env
 Luego editar el archivo .env con los valores correspondientes para tu entorno.
 
 Ejecutar en modo desarrollo:
+```shell
 npm run dev
-Documentación de la API
+```
+## Documentación de la API
 Obtener todos los productos
 GET /products
 Descripción: Devuelve la lista de todos los productos.

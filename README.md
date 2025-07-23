@@ -35,7 +35,7 @@ Resp. Ej:
 - Devuelve los productos cuyo nombre contiene la palabra indicada.
 - Parámetros:
 name (query, requerido): texto a buscar en el nombre del producto.
-Ejemplo de uso: /products/search?name=camiseta
+- Ejemplo de uso: /products/search?name=camiseta
 Respuesta ejemplo:
 ``` bash
 [{ "id": 1, "name": "Camiseta Deportiva", "price": 150 }]
@@ -45,33 +45,39 @@ Respuesta ejemplo:
 - Devuelve un producto específico por su ID.
 - Parámetros:
 id (path, requerido): ID del producto.
-Ejemplo de uso: /products/1
+- Ejemplo de uso: /products/1
 Respuesta ejemplo:
 ``` bash
 { "id": 1, "name": "Camiseta Deportiva", "price": 150 }
 ```
 ### Crear un producto
-POST /products
-Descripción: Crea un nuevo producto.
+- POST /products
+- Crea un nuevo producto.
+``` bash
 Body (JSON):
 { "name": "Nuevo Producto", "price": 999 }
+```
 Respuesta ejemplo:
+``` bash
 { "id": 6, "name": "Nuevo Producto", "price": 999 }
+```
 ### Actualizar un producto (PUT)
-PUT /products/:id
-Descripción: Actualiza completamente un producto existente.
-Parámetros:
+- PUT /products/:id
+- Actualiza completamente un producto existente.
+- Parámetros:
 id (path, requerido): ID del producto a actualizar.
 Body (JSON):
+``` bash
 { "name": "Producto Actualizado", "price": 500 }
+``` 
 Respuesta ejemplo:
 ``` bash
 { "id": 1, "name": "Producto Actualizado", "price": 500 }
 ```
 ### Actualizar parcialmente un producto (PATCH)
-PATCH /products/:id
-Descripción: Actualiza parcialmente un producto existente.
-Parámetros:
+- PATCH /products/:id
+- Actualiza parcialmente un producto existente.
+- Parámetros:
 id (path, requerido): ID del producto a actualizar.
 Body (JSON): Solo los campos que se desean actualizar
 { "price": 600 }
@@ -80,8 +86,8 @@ Respuesta ejemplo:
 { "id": 1, "name": "Camiseta Deportiva", "price": 600 }
 ```
 ### Eliminar un producto
-DELETE /products/:id
-Descripción: Elimina un producto por su ID.
+- DELETE /products/:id
+- Elimina un producto por su ID.
 Parámetros:
 id (path, requerido): ID del producto a eliminar.
 ``` bash

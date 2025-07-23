@@ -50,9 +50,9 @@ export const getProductById = async (req, res) => {
 
 
 export const createProduct = async (req, res) => {
-    const { name, price, categories } = req.body;
+    const { name, price, categories, stock } = req.body;
 
-    const product = await Model.createProduct({ name, price, categories });
+    const product = await Model.createProduct({ name, price, categories, stock });
     
     res.status(201).json(product);
 };

@@ -68,3 +68,18 @@ export const deleteProduct =async (req, res) => {
 
 res.status(204).send();
 };
+
+export const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const updatedProductData = req.body;
+
+  const updatedProduct = await Model
+  
+  .updateProduct(id, updatedProductData);
+
+  if (updatedProduct) {
+    res.json(updatedProduct);
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+};

@@ -1,6 +1,6 @@
 import { db } from "./firebase.js";
 
-import { collection, getDocs, doc, getDoc, addDoc, deleteDoc} from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, addDoc, deleteDoc, setDoc} from "firebase/firestore";
 
 const productsColletion = collection(db, "products");
 
@@ -45,6 +45,17 @@ export const deleteProduct = async(id) => {
     return true;
   }catch(error) {
     console.error(error);
+  }
+};
+
+export const updateProduct = async (id, updatedProductData) => {
+  try {
+    const docRef = doc(productsColletion, id);
+    await setDoc(docRef, updatedProductData, { merge: true });
+    return { id, ...updatedProductData };
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
 

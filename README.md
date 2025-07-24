@@ -20,7 +20,7 @@ npm run dev
 ```
 ## Documentación de la API
 ### Obtener todos los productos:
-GET api/products
+GET /api/products
 - Devuelve la lista de todos los productos.
 Resp. Ej:
 ```bash
@@ -31,7 +31,7 @@ Resp. Ej:
 ]
 ```
 ### Buscar productos por nombre:
-- GET api/products/search?name=palabra
+- GET /api/products/search?name=palabra
 - Devuelve los productos cuyo nombre contiene la palabra indicada.
 - Parámetros:
 name (query, requerido): texto a buscar en el nombre del producto.
@@ -41,7 +41,7 @@ Respuesta ejemplo:
 [{ "id": 1, "name": "Camiseta Deportiva", "price": 150 }]
 ```
 ### Obtener producto por ID.
-- GET api/products/:id
+- GET /api/products/:id
 - Devuelve un producto específico por su ID.
 - Parámetros:
 id (path, requerido): ID del producto.
@@ -51,7 +51,7 @@ Respuesta ejemplo:
 { "id": 1, "name": "Camiseta Deportiva", "price": 150 }
 ```
 ### Crear un producto
-- POST /products
+- POST /api/products
 - Crea un nuevo producto.
 ``` bash
 Body (JSON):
@@ -62,7 +62,7 @@ Respuesta ejemplo:
 { "id": 6, "name": "Nuevo Producto", "price": 999 }
 ```
 ### Actualizar un producto (PUT)
-- PUT /products/:id
+- PUT /api/products/:id
 - Actualiza completamente un producto existente.
 - Parámetros:
 id (path, requerido): ID del producto a actualizar.
@@ -75,7 +75,7 @@ Respuesta ejemplo:
 { "id": 1, "name": "Producto Actualizado", "price": 500 }
 ```
 ### Actualizar parcialmente un producto (PATCH)
-- PATCH /products/:id
+- PATCH /api/products/:id
 - Actualiza parcialmente un producto existente.
 - Parámetros:
 id (path, requerido): ID del producto a actualizar.
@@ -86,7 +86,7 @@ Respuesta ejemplo:
 { "id": 1, "name": "Camiseta Deportiva", "price": 600 }
 ```
 ### Eliminar un producto
-- DELETE /products/:id
+- DELETE /api/products/:id
 - Elimina un producto por su ID.
 Parámetros:
 id (path, requerido): ID del producto a eliminar.

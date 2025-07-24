@@ -1,81 +1,73 @@
-import * as Model from "../models/Product.js";
+import * as Service from "../services/products.service.js";
 
 export const getAllProducts = async (req, res) => {
-    const { category } = req.query;
+  const { category } = req.query;
 
-    const products = await Model.getAllProducts();
-    
-    if (category) {
-        const productsFiltered = products.filter((item) =>
-            item.categories.includes(category)
-        );
-        
+  const products = await Service.getAllProducts();
+
+  if (category) {
+    const productsFiltered = products.filter((item) =>
+      item.categories.includes(category)
+    );
     return res.json(productsFiltered);
-    }
-    return res.json(products);
+  }
+
+  return res.json(products);
 };
 
 export const searchProducts = async (req, res) => {
-    const { name } = req.query;
+  const { name } = req.query;
 
-    if(!name) {
-        return res.status(400).json({ error: "El nombre es requerido" });
-    }
+  if (!name) {
+    return res.status(400).json({ error: "El nombre es requerido" });
+  }
 
-    const products = await Model.getAllProducts();
-    
-    const productsFiltered = products.filter((item) =>
-        item.name.toLowerCase().includes(name.toLowerCase())
-    );
+  const products = await Service.getAllProducts();
 
-    if (productsFiltered.length == 0) {
-      return res.status(404).json({ error: "No se encontraron productos" });  
-    }
+  const productsFiltered = products.filter((item) =>
+    item.name.toLowerCase().includes(name.toLowerCase())
+  );
 
-    return res.json(productsFiltered);
+  if (productsFiltered.length === 0) {
+    return res.status(404).json({ error: "No se encontraron productos" });
+  }
+
+  return res.json(productsFiltered);
 };
 
 export const getProductById = async (req, res) => {
-    const id = req.params.id;
-    console.log(id);
-    console.log('aqui');
-    const product = await Model.getProductById(id);
-    
-    if (!product) {
-        return res.status(404).json({error: "No existe el producto"});
-    }
+  const id = req.params.id;
+  const product = await Service.getProductById(id);
 
-    return res.json(product);
+  if (!product) {
+    return res.status(404).json({ error: "No existe el producto" });
+  }
+
+  return res.json(product);
 };
-
 
 export const createProduct = async (req, res) => {
-    const { name, price, categories, stock } = req.body;
-
-    const product = await Model.createProduct({ name, price, categories, stock });
-    
-    res.status(201).json(product);
+  const { name, price, categories, stock } = req.body;
+  const product = await Service.createProduct({ name, price, categories, stock });
+  res.status(201).json(product);
 };
 
-export const deleteProduct =async (req, res) => {
-    const { id } = req.params;
+export const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  const deleted = await Service.deleteProduct(id);
 
-    const deleted = await Model.deleteProduct(id);
+  if (!deleted) {
+    return res.status(404).json({ error: "Producto No Encontrado" });
+  }
 
-    if(!deleted) {
-        return res.status(404).json
-({ error: "Producto No Encontrado"});    }
-
-res.status(204).send();
+  res.status(204).send();
 };
 
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const updatedProductData = req.body;
 
-  const updatedProduct = await Model
-  
-  .updateProduct(id, updatedProductData);
+  const updatedProduct = await Service.updateProduct(id, updatedProductData);
 
   if (updatedProduct) {
     res.json(updatedProduct);
